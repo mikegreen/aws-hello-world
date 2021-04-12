@@ -1,13 +1,9 @@
-variable "sg_id" {
-  type = list(any)
-}
-
 module "ec2_cluster" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 2.0"
 
   name           = "my-cluster"
-  instance_count = 2
+  instance_count = 1
 
   ami                    = "ami-0b3192b6308bb1b49"
   instance_type          = "t2.micro"
