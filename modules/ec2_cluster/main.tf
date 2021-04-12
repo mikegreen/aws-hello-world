@@ -1,3 +1,7 @@
+variable "sg_id" {
+  type = list(any)
+}
+
 module "ec2_cluster" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 2.0"
@@ -9,7 +13,7 @@ module "ec2_cluster" {
   instance_type          = "t2.micro"
   key_name               = "user1"
   monitoring             = false
-  vpc_security_group_ids = ["sg-12345678"]
+  vpc_security_group_ids = var.sg_id
   subnet_id              = "subnet-079a2a640910b738d"
 
   tags = {

@@ -16,6 +16,8 @@ provider "aws" {
 
 module "ec2-example-github-ref" {
   source = "github.com/mikegreen/aws-hello-world.git//modules/ec2_cluster?ref=0.2"
+
+  sg_id = module.security-group-web-servers.this_security_group_id
 }
 
 module "security-group-web-servers" {
