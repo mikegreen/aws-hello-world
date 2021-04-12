@@ -9,15 +9,16 @@ module "ec2_cluster" {
   name           = "my-cluster"
   instance_count = 2
 
-  ami                    = "ami-ebd02392"
+  ami                    = "ami-0b3192b6308bb1b49"
   instance_type          = "t2.micro"
-  key_name               = "user1"
+  key_name               = "mike.green"
   monitoring             = false
   vpc_security_group_ids = var.sg_id
-  subnet_id              = "subnet-079a2a640910b738d"
+  subnet_id              = "subnet-23150869"
 
   tags = {
     Terraform   = "true"
     Environment = "dev"
+    Owner       = "mike.green"
   }
 }

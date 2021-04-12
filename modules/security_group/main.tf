@@ -7,3 +7,8 @@ module "sg-example" {
 
   ingress_cidr_blocks = ["10.10.0.0/16"]
 }
+
+output "this_security_group_id" {
+  description = "The ID of the security group"
+  value       = module.sg-example.this_security_group_id
+}

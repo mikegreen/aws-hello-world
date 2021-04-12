@@ -15,12 +15,15 @@ provider "aws" {
 
 
 module "ec2-example-github-ref" {
-  source = "github.com/mikegreen/aws-hello-world.git//modules/ec2_cluster?ref=0.2"
+  source = "../modules/ec2_cluster"
+  //  source = "github.com/mikegreen/aws-hello-world.git//modules/ec2_cluster?ref=0.2"
 
-  sg_id = module.security-group-web-servers.this_security_group_id
+  sg_id = [module.security-group-web-servers.this_security_group_id]
+  //sg_id = ["sg-1234"] //module.security-group-web-servers.this_security_group_id
 }
 
 module "security-group-web-servers" {
-  source = "github.com/mikegreen/aws-hello-world.git//modules/security_group"
+  source = "../modules/security_group"
+  //  source = "github.com/mikegreen/aws-hello-world.git//modules/security_group"
 }
 
