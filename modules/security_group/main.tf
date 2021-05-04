@@ -1,5 +1,6 @@
 module "sg-example" {
-  source = "terraform-aws-modules/security-group/aws//modules/http-80"
+  source  = "terraform-aws-modules/security-group/aws//modules/http-80"
+  version = "~> 3.18"
 
   name        = "web-server"
   description = "Security group for web-server with HTTP ports open within VPC"
