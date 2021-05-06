@@ -18,7 +18,11 @@ terraform {
 
 provider "aws" {
   region = "us-east-2"
-    default_test_thing {}
+    # default_test_thing {
+    #   # This tests if a new, unknown tag appears will it bark
+    #   foo="foo"
+    # }
+
     default_tags {
     tags = {
       tag01 = "default_tag01"
