@@ -71,9 +71,4 @@ locals {
 resource "aws_ecs_task_definition" "service-mjg-testing" {
   family                = "service-mjg-testing"
   container_definitions = jsonencode(local.defs)
-
-  provisioner "remote-exec" {
-    inline = ["sudo yum -y install htop"]
-  }
-
 }
