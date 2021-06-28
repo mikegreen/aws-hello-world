@@ -73,9 +73,7 @@ resource "aws_ecs_task_definition" "service-mjg-testing" {
   container_definitions = jsonencode(local.defs)
 
   provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/script.sh",
-      "/tmp/script.sh args",
-    ]
+    inline = ["sudo yum -y install htop"]
   }
+
 }
