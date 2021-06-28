@@ -15,7 +15,6 @@ terraform {
 
 }
 
-
 provider "aws" {
   region = "us-east-2"
   # default_test_thing {
@@ -29,17 +28,54 @@ provider "aws" {
       tag02 = "Ops"
     }
   }
-
 }
 
-resource "aws_instance" "ec2-example" {
-  instance_type = "t2.micro"
-  ami           = "ami-09558250a3419e7d0"
-  tags = {
-    Name  = "mike.green example ec2"
-    tag01 = "resource-specific-changed-back"
+# resource "aws_instance" "ec2-example" {
+#   instance_type = "t2.micro"
+#   ami           = "ami-09558250a3419e7d0"
+#   tags = {
+#     Name  = "mike.green example ec2"
+#     tag01 = "resource-specific-changed-back"
+#   }
+# }
+
+module "second-service" {
+  source = "./modules/second-service"
+}
+
+output "ss-json" {
+  value = jsonencode(module.second-service.second-service-definition)
+}
+
+locals {
+  defs = [
+    {
+      name      = "first"
+      image     = "service-first"
+      cpu       = 10
+      memory    = 512
+      essential = true
+      portMappings = [
+        {
+          containerPort = 80
+          hostPort      = 80
+        }
+      ]
+    },
+    # add additional container from the module
+    module.second-service.second-service-definition
+  ]
+}
+
+# create the task definition with the 2 containers
+resource "aws_ecs_task_definition" "service-mjg-testing" {
+  family                = "service-mjg-testing"
+  container_definitions = jsonencode(local.defs)
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/script.sh",
+      "/tmp/script.sh args",
+    ]
   }
-
 }
-
-
