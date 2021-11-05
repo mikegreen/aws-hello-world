@@ -66,9 +66,3 @@ locals {
     module.second-service.second-service-definition
   ]
 }
-
-# create the task definition with the 2 containers
-resource "aws_ecs_task_definition" "service-mjg-testing" {
-  family                = "service-mjg-testing"
-  container_definitions = jsonencode(local.defs)
-}
